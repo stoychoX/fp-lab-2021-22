@@ -22,11 +22,8 @@ flipBinary End temp = temp
 flipBinary(a :. b) temp = flipBinary a (temp :. b)
 
 integerToBinary :: Integer -> Binary
-integerToBinary a = flipBinary (helper a End) End
- where 
-     helper :: Integer -> Binary -> Binary
-     helper 0 result = result
-     helper num result = if even num then helper (num `div` 2) (result :. Zero) else helper (num `div` 2) (result :. One)
+integerToBinary 0 = End
+integerToBinary num = integerToBinary(num `div` 2) :. if even num then Zero else One
 
 binaryToInteger :: Binary -> Integer
 binaryToInteger arg = helper arg 0 0
