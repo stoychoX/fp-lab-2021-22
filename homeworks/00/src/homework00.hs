@@ -39,7 +39,7 @@ binaryToInteger arg = helper arg 0 0
 hasLeadingZero :: Binary -> Bool
 hasLeadingZero (End :. Zero) = True
 hasLeadingZero (End :. One) = False
-hasLeadingZero End = false
+hasLeadingZero End = False
 hasLeadingZero (a :. _) = hasLeadingZero a 
 
 isEnd :: Binary -> Bool
