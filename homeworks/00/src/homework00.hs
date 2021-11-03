@@ -44,12 +44,9 @@ isEnd End = True
 isEnd _ = False
 
 canonicalise :: Binary -> Binary
-canonicalise num = flipBinary (helper (flipBinary num End)) End
-  where
-    helper :: Binary -> Binary 
-    helper(b :. Zero) = helper b
-    helper (b :. One) = b :. One
-    helper End = End
+canonicalise (a :. One) = canonicalise a :. One 
+canonicalise (a :. Zero) = if isEnd a then End else canonicalise a :. Zero
+canonicalise End = End
 
 isZero :: Bit -> Bool 
 isZero Zero = True 
