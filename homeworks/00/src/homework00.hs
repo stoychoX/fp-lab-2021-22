@@ -29,17 +29,18 @@ integerToBinary a = flipBinary (helper a End) End
      helper num result = if even num then helper (num `div` 2) (result :. Zero) else helper (num `div` 2) (result :. One)
 
 binaryToInteger :: Binary -> Integer
-binaryToInteger a = helper a 0 0
+binaryToInteger arg = helper arg 0 0
  where
      helper :: Binary -> Integer -> Integer -> Integer 
-     helper End powc result = result
+     helper End _ result = result
      helper (a :. One) powc result = helper a (powc + 1) (2 ^ powc + result)
      helper (a :. Zero) powc result = helper a (powc + 1) result
 
 hasLeadingZero :: Binary -> Bool
 hasLeadingZero (End :. Zero) = True
 hasLeadingZero (End :. One) = False
-hasLeadingZero (a :. b) = hasLeadingZero a 
+hasLeadingZero End = false
+hasLeadingZero (a :. _) = hasLeadingZero a 
 
 isEnd :: Binary -> Bool
 isEnd End = True
@@ -58,7 +59,7 @@ isZero Zero = True
 isZero _ = False 
 
 addBinary :: Binary -> Binary -> Binary
-addBinary a b = flipBinary (helper a b Zero End) End
+addBinary arg args = flipBinary (helper arg args Zero End) End
  where
   helper :: Binary -> Binary -> Bit -> Binary -> Binary
    --Both ended:
